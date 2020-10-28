@@ -1,21 +1,39 @@
 import React from 'react';
-import { Text, View, Button, StyleSheet, TouchableHighlight} from 'react-native';
+import { Text, View, Button, FlatList, StyleSheet, TouchableHighlight} from 'react-native';
 
 
 
 
  export function Home({ navigation }) {
     let bgColor = '#E31676';
-    let textColor = '#fff';
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+
+
+            <View>
+                <FlatList
+        data={[
+          {key: 'Devin'},
+          {key: 'Dan'},
+          {key: 'Dominic'},
+          {key: 'Jackson'},
+          {key: 'James'},
+          {key: 'Joel'},
+          {key: 'John'},
+          {key: 'Jillian'},
+          {key: 'Jimmy'},
+          {key: 'Julie'},
+        ]}
+        renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+      />
+                
 
               <TouchableHighlight style={[styles.container]} onPress={() => navigation.navigate('Details')} underlayColor="transparent">
         <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
         </View>
       </TouchableHighlight>
       </View>
+
+
     );
   }
 
@@ -45,4 +63,9 @@ import { Text, View, Button, StyleSheet, TouchableHighlight} from 'react-native'
       fontSize: 24,
       lineHeight: 24,
     },
+    item: {
+        padding: 10,
+        fontSize: 18,
+        height: 44,
+      }
   });
