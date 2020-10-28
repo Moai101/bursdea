@@ -4,14 +4,26 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
 import { Detail } from './screens/Detail'
-
-
-
-
+import firebase from 'firebase';
+import env from './env.json';
 
 
 
 const Stack = createStackNavigator();
+
+const firebaseConfig = {
+  apiKey: env.apiKey,
+  authDomain: env.authDomain,
+  databaseURL: env.databaseURL,
+  projectId: env.projectId,
+  storageBucket: env.storageBucket,
+  messagingSenderId: env.messagingSenderId,
+  appId: env.appId,
+  measurementId: env.measurementId
+};
+
+firebase.initializeApp(firebaseConfig);
+
 
 
 
