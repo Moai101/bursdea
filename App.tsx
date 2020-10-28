@@ -44,11 +44,17 @@ export default class App extends React.Component {
 
   render(){
     return (
-      <View style={styles.container}>
+      // <View style={styles.container}>
 
-        <Text>Open!</Text>
-        <StatusBar style="auto" />
-      </View>
+      //   <Text>Open!</Text>
+      //   <StatusBar style="auto" />
+      // </View>
+      <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
     );
 
   }
