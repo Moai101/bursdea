@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from 'firebase';
 import env from './env.json';
 import { StyleSheet, Text, View, Button, Alert} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
 import { Detail } from './screens/Detail'
 import * as Analytics from 'expo-firebase-analytics';
+import firebase from 'firebase';
 
 
 const firebaseConfig = {
@@ -23,7 +23,16 @@ const firebaseConfig = {
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
+
 }
+
+const db = firebase.firestore();
+
+
+
+
+
+
 
 
 
@@ -32,9 +41,23 @@ const Stack = createStackNavigator();
 
 
 const recordOnPressLog = () => {
-  Analytics.logEvent('onPress');
-  Alert.alert('OnPress');
+
+
+  db.collection("test").add({
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+
+    console.error("Error adding document: ", error);
+});
+
 };
+
 
 
 
