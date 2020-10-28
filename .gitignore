@@ -15,3 +15,5 @@ app.json
 
 env.json
 app.json
+GoogleService-Info.plist
+google-services.json

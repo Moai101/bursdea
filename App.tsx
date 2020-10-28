@@ -26,35 +26,30 @@ if (firebase.apps.length === 0) {
 
 }
 
-const db = firebase.firestore();
-
-
-
-
-
-
-
-
 
 
 const Stack = createStackNavigator();
 
 
 const recordOnPressLog = () => {
+  // const db = firebase.firestore();
+//   db.collection("test").add({
+//     first: "Ada",
+//     last: "Lovelace",
+//     born: 1815
+// })
+// .then(function(docRef) {
+//     console.log("Document written with ID: ", docRef.id);
+// })
+// .catch(function(error) {
 
-
-  db.collection("test").add({
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
-})
-.then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-})
-.catch(function(error) {
-
-    console.error("Error adding document: ", error);
-});
+//     console.error("Error adding document: ", error);
+// });
+Analytics.logEvent('ButtonTapped', 
+  { name: 'settings', screen: 'profile', purpose: 'Opens the internal settings', })
+  .then(function(res){
+    console.log(res)
+  })
 
 };
 
