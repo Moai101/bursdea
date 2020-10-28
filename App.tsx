@@ -1,15 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
+import firebase from 'firebase';
+import env from './env.json';
+import { StyleSheet, Text, View, Button, Alert} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
 import { Detail } from './screens/Detail'
-import firebase from 'firebase';
-import env from './env.json';
+import * as Analytics from 'expo-firebase-analytics';
 
-
-
-const Stack = createStackNavigator();
 
 const firebaseConfig = {
   apiKey: env.apiKey,
@@ -21,8 +19,23 @@ const firebaseConfig = {
   appId: env.appId,
   measurementId: env.measurementId
 };
+// Initialize Firebase
 
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+
+
+
+const Stack = createStackNavigator();
+
+
+const recordOnPressLog = () => {
+  Analytics.logEvent('onPress');
+  Alert.alert('OnPress');
+};
+
 
 
 
@@ -32,6 +45,7 @@ export default class App extends React.Component {
   render(){
     return (
       <NavigationContainer>
+        <Button onPress={recordOnPressLog} title="Record Log Event" />
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Detail} />
