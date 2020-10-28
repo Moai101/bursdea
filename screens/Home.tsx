@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, Button, FlatList, StyleSheet, TouchableHighlight} from 'react-native';
+import { Text, View, FlatList, StyleSheet, TouchableHighlight} from 'react-native';
+
 
 
 
@@ -23,7 +24,17 @@ import { Text, View, Button, FlatList, StyleSheet, TouchableHighlight} from 'rea
           {key: 'Jimmy'},
           {key: 'Julie'},
         ]}
-        renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+        renderItem={({item}) => 
+        
+        
+
+        <TouchableHighlight onPress={() => navigation.navigate('Details',{text:item.key})} underlayColor="transparent">
+        <Text
+        style={styles.item}
+        >{item.key}</Text>
+      </TouchableHighlight>
+    
+    }
       />
                 
 
@@ -66,6 +77,6 @@ import { Text, View, Button, FlatList, StyleSheet, TouchableHighlight} from 'rea
     item: {
         padding: 10,
         fontSize: 18,
-        height: 44,
+        height: 70,
       }
   });
