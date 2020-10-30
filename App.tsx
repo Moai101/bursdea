@@ -9,6 +9,11 @@ import * as Analytics from 'expo-firebase-analytics';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
 import { Publish } from './screens/Publish'
+import  appReducer from './reducers/Reducer'
+import { createStore } from 'redux';
+import Counter from './containers/Counter'
+
+  const store = createStore(appReducer);
 
 
 
@@ -67,32 +72,28 @@ export default class App extends Component<Props> {
 
   constructor(props:Props){
     super(props)
-    console.log(store.getState())
   }
 
   render(){
     return (
-<<<<<<< HEAD
       <Provider store={store}>
 
-      <NavigationContainer>
-        <Button onPress={recordOnPressLog} title="Record Log Event" />
-=======
 
-      <NavigationContainer>
         <Button onPress={recordOnPressLog} title="Record Log Event" />
 
+        <NavigationContainer>
 
->>>>>>> d5a6ee4130a91b1a84156ea61f2f0e399ac5cb02
+
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Detail} />
-        <Stack.Screen name="Publish" component={Publish} />
+        <Stack.Screen name="Publish" component={Counter} />
 
 
       </Stack.Navigator>
 
     </NavigationContainer>
+    </Provider>
 
     );
 
