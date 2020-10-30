@@ -1,5 +1,8 @@
 import React from 'react';
 import { Text, View, FlatList, StyleSheet, TouchableHighlight} from 'react-native';
+import  appReducer from '../reducers/Reducer'
+import { createStore } from 'redux';
+  const store = createStore(appReducer);
 
 
 
@@ -11,6 +14,8 @@ import { Text, View, FlatList, StyleSheet, TouchableHighlight} from 'react-nativ
 
 
             <View>
+                  <Text>{store.getState()["counter"]["value"]}</Text>
+
                 <FlatList
         data={[
           {key: 'Devin'},

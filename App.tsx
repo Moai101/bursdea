@@ -68,13 +68,17 @@ type Props = {};
 
 export default class App extends Component<Props> {
 
+  constructor(props:Props){
+    super(props)
+    console.log(store.getState())
+  }
+
   render(){
     return (
       <Provider store={store}>
+
       <NavigationContainer>
         <Button onPress={recordOnPressLog} title="Record Log Event" />
-        {/* <Text>{JSON.stringify(store.getState())}</Text> */}
-
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Detail} />

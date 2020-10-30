@@ -1,6 +1,10 @@
 // Viewだけを管理する
 import { View, Text, Button, StyleSheet } from 'react-native';
 import * as React from 'react';
+import  appReducer from '../reducers/Reducer'
+import { createStore } from 'redux';
+import { addCount, reset } from '../actions/Count'
+  const store = createStore(appReducer);
 
 export interface CounterProps {
   value?: number;
@@ -11,18 +15,31 @@ export interface CounterProps {
 const Counter: React.SFC<CounterProps> = (props: CounterProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.countText}>{props.value || 0}</Text>
+      <Text style={styles.countText}>{store.getState()["counter"]["value"] || 0}</Text>
       <View style={styles.buttons}>
         <Button
           title="increment"
           onPress={() => {
-            if (props.addCount) props.addCount(1);
+            if (props.addCount){
+              props.addCount(1);
+              console.log(JSON.stringify(store.getState()))
+              store.dispatch(addCount(1))
+              console.log(JSON.stringify(store.getState()))
+
+            } 
           }}
         />
         <Button
           title="reset"
           onPress={() => {
-            if (props.reset) props.reset();
+            if (props.reset){
+
+              props.reset();
+              store.dispatch(reset())
+
+
+
+            } 
           }}
         />
       </View>

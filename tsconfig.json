@@ -1,7 +1,7 @@
 {
       "compilerOptions": {
       "outDir": "build",
-      "rootDir": "src",
+      "rootDir": "bursdea",
       "sourceMap": true,
       "noImplicitAny": true,
       "noUnusedLocals": true,
@@ -14,7 +14,7 @@
       "baseUrl": ".",
       "moduleResolution": "node",
       "esModuleInterop": true  },
-      "include": ["./screens/**/*"],
+      "include": ["./bursdea"],
       "exclude": ["node_modules"]
     }
 }
