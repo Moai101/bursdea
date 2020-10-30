@@ -1,12 +1,12 @@
-import PublishReducer, { PublishState } from './PublishReducer';
+import counterReducer, { CounterState } from './CounterReducer';
 import { combineReducers } from 'redux';
 
 export interface AppState {
-  publish: PublishState;
+  counter: CounterState;
 }
 
 const appReducer = combineReducers<AppState>({
-    publish: PublishReducer,
+  counter: counterReducer,
 });
 
 export default appReducer;

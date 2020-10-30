@@ -5,16 +5,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
 import { Detail } from './screens/Detail'
+import Counter from './containers/Counter';
 import * as Analytics from 'expo-firebase-analytics';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
-import appReducer from './reducers/Reducer';
 import { createStore } from 'redux';
-import Publish from './containers/Publish';
+import appReducer from './reducers/Reducer';
 
-
-const store = createStore(appReducer);
-
+  const store = createStore(appReducer);
 
 
 
@@ -75,20 +73,19 @@ export default class App extends Component<Props> {
       <Provider store={store}>
       <NavigationContainer>
         <Button onPress={recordOnPressLog} title="Record Log Event" />
-        <Text>
-        {store.getState()["publish"]["idea"]}
+        {/* <Text>{JSON.stringify(store.getState())}</Text> */}
 
-        </Text>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Detail} />
-        <Stack.Screen name="Publish" component={Publish} />
+        <Stack.Screen name="Publish" component={Counter} />
 
 
       </Stack.Navigator>
 
     </NavigationContainer>
-    </Provider>
+          </Provider>
+
     );
 
   }
