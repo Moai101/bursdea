@@ -1,13 +1,21 @@
-import React from 'react';
+import React,{ Component} from 'react';
 import env from './env.json';
 import { StyleSheet, Text, View, Button, Alert} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
 import { Detail } from './screens/Detail'
-import Publish  from './screens/Publish'
 import * as Analytics from 'expo-firebase-analytics';
 import firebase from 'firebase';
+import { Provider } from 'react-redux';
+import appReducer from './reducers/Reducer';
+import { createStore } from 'redux';
+import Publish from './containers/Publish';
+
+
+const store = createStore(appReducer);
+
+
 
 
 const firebaseConfig = {
@@ -56,16 +64,21 @@ Analytics.logEvent('share', {
 };
 
 
+type Props = {};
 
 
 
-
-export default class App extends React.Component {
+export default class App extends Component<Props> {
 
   render(){
     return (
+      <Provider store={store}>
       <NavigationContainer>
         <Button onPress={recordOnPressLog} title="Record Log Event" />
+        <Text>
+        {store.getState()["publish"]["idea"]}
+
+        </Text>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Detail} />
@@ -75,6 +88,7 @@ export default class App extends React.Component {
       </Stack.Navigator>
 
     </NavigationContainer>
+    </Provider>
     );
 
   }
