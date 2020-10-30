@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
 import { Detail } from './screens/Detail'
+import Publish  from './screens/Publish'
 import * as Analytics from 'expo-firebase-analytics';
 import firebase from 'firebase';
 
@@ -45,11 +46,12 @@ const recordOnPressLog = () => {
 
 //     console.error("Error adding document: ", error);
 // });
-Analytics.logEvent('ButtonTapped', 
-  { name: 'settings', screen: 'profile', purpose: 'Opens the internal settings', })
-  .then(function(res){
-    console.log(res)
-  })
+Analytics.logEvent('share', {
+  contentType: 'text', 
+  itemId: 'Expo rocks!', 
+  method: 'facebook'
+})
+
 
 };
 
@@ -67,6 +69,8 @@ export default class App extends React.Component {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Detail} />
+        <Stack.Screen name="Publish" component={Publish} />
+
 
       </Stack.Navigator>
 

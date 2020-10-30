@@ -38,7 +38,7 @@ import { Text, View, FlatList, StyleSheet, TouchableHighlight} from 'react-nativ
       />
                 
 
-              <TouchableHighlight style={[styles.container]} onPress={() => navigation.navigate('Details')} underlayColor="transparent">
+              <TouchableHighlight style={[styles.container]} onPress={() => navigation.navigate('Publish')} underlayColor="transparent">
         <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
         </View>
       </TouchableHighlight>
