@@ -28,16 +28,22 @@ const db = firebase.firestore();
 
 
 
-interface State {
+interface Function {
   press:() => void
   winTextChange:(text:string) => void
-  wniTextChange:(text:string) => void
+  wniTextChange:(text:string) => void;
 
+
+}
+
+interface State{
+  win:string;
+  wni:string;
 }
 
 
 
-export class Publish extends React.Component implements State {
+export class Publish extends React.Component<{},State> implements Function {
 
   constructor(props){
     super(props)
