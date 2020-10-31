@@ -29,8 +29,8 @@ const db = firebase.firestore();
 
 
 interface Function {
-  press:() => void
-  winTextChange:(text:string) => void
+  press:() => void;
+  winTextChange:(text:string) => void;
   wniTextChange:(text:string) => void;
 
 
@@ -50,6 +50,7 @@ export class Publish extends React.Component<{},State> implements Function {
     // console.log(JSON.stringify(store.getState()))
     // store.dispatch(addCount(1))
     // console.log(JSON.stringify(store.getState()))
+
     this.state = {
       win:"",
       wni:""

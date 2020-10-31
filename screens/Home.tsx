@@ -1,15 +1,13 @@
 import React from 'react';
-import { Text, View, FlatList, StyleSheet, TouchableHighlight} from 'react-native';
+import { Text, View, FlatList, StyleSheet, TouchableHighlight, Button} from 'react-native';
 import  appReducer from '../reducers/Reducer'
 import { createStore } from 'redux';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import env from '../env.json';
 // import { createStackNavigator } from 'react-navigation';
-
-
-
   const store = createStore(appReducer);
+  
 
   const firebaseConfig = {
     apiKey: env.apiKey,
@@ -39,45 +37,59 @@ import env from '../env.json';
     constructor(props){
       super(props)
 
+      this.state = {
+        data:[]
+      }
+
+    this.getData()
+
+
 
     }
 
+    async getData(){
+
+
+      const querySnapshot = await db.collection("posts").get()
+
+      const data = [];
+
+      querySnapshot.forEach(doc => {
+        const result = {...doc.data(), ...{"postId": doc.id}}
+        data.push(result);
+      });
+
+      this.setState({ data: data });
+
+
+
+
+
+    }
+
+
     render(){
-      // const navigation = useNavigation();
       let bgColor = '#E31676';
 
 
       return(
 
         <View>
-
         <FlatList
-  data={[
-  {key: 'Devin'},
-  {key: 'Dan'},
-  {key: 'Dominic'},
-  {key: 'Jackson'},
-  {key: 'James'},
-  {key: 'Joel'},
-  {key: 'John'},
-  {key: 'Jillian'},
-  {key: 'Jimmy'},
-  {key: 'Julie'},
-  ]}
-  renderItem={({item}) => 
-  
-  
-  
-  <TouchableHighlight 
-  onPress={() => this.props.navigation.navigate('Details',{text:item.key})} 
-  underlayColor="black">
-  <Text
-  style={styles.item}
-  >{item.key}</Text>
-  </TouchableHighlight>
-  
-  }
-  />
+          data={this.state.data}
+          keyExtractor={(item) => item.postId}
+          renderItem={({item}) => 
+          
+          <TouchableHighlight 
+          onPress={() => this.props.navigation.navigate('Details',{text:item.postId})} 
+          underlayColor="black">
+          <Text
+          style={styles.item}
+          >{item.userId}</Text>
+          </TouchableHighlight>
+          
+          }
+          />
         
   
       <TouchableHighlight 
