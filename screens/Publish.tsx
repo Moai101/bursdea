@@ -1,30 +1,70 @@
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert, TextInput } from 'react-native';
 import React,{ Component} from 'react';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import env from '../env.json';
+import  appReducer from '../reducers/Reducer'
+import { createStore } from 'redux';
+import { addCount } from '../actions/Count';
+const store = createStore(appReducer);
+
+const firebaseConfig = {
+  apiKey: env.apiKey,
+  authDomain: env.authDomain,
+  databaseURL: env.databaseURL,
+  projectId: env.projectId,
+  storageBucket: env.storageBucket,
+  messagingSenderId: env.messagingSenderId,
+  appId: env.appId,
+  measurementId: env.measurementId
+};
+
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+
+}
+
+const db = firebase.firestore();
 
 
 
-// Initialize Firebase
+interface State {
+  press:() => void
+  winTextChange:(text:string) => void
+  wniTextChange:(text:string) => void
 
-type Props = {};
+}
 
 
+export class Publish extends React.Component implements State {
 
-
-export class Publish extends Component {
-  constructor(props:Props){
+  constructor(props){
     super(props)
+    // console.log(JSON.stringify(store.getState()))
+    // store.dispatch(addCount(1))
+    // console.log(JSON.stringify(store.getState()))
+    this.state = {
+      win:"",
+      wni:""
+    }
+  }
+
+  winTextChange(text:string){
+    this.setState({win:text});
+
+  }
+
+  wniTextChange(text:string){
+    this.setState({wni:text});
 
   }
 
   press(){
-      const db = firebase.firestore();
-  db.collection("test").add({
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
+
+  db.collection("posts").add({
+    userId: "Ada",
+    win: this.state.win,
+    wni: this.state.wni
 })
 .then(function(docRef) {
     console.log("Document written with ID: ", docRef.id);
@@ -35,12 +75,24 @@ export class Publish extends Component {
 });
 
 
+
   }
   render(){
     return (
       <View>
-        <Text>test</Text>
-        <Button onPress={this.press} title="Record Log Event" />
+        <TextInput
+          value={this.state.win}
+          onChangeText={this.winTextChange.bind(this)}
+          style={{ width: 200, height: 44, padding: 8 }}
+          placeholder={'What idea do you need?'}
+        />
+                <TextInput
+          value={this.state.wni}
+          onChangeText={this.wniTextChange.bind(this)}
+          style={{ width: 200, height: 44, padding: 8 }}
+          placeholder={'Why do you need ideas?'}
+        />
+        <Button onPress={this.press.bind(this)} title="Record Log Event" />
 
 
       </View>
