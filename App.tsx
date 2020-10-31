@@ -6,7 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
 import { Detail } from './screens/Detail'
 import * as Analytics from 'expo-firebase-analytics';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 import { Provider } from 'react-redux';
 import { Publish } from './screens/Publish'
 import  appReducer from './reducers/Reducer'
@@ -30,10 +31,7 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 
-if (firebase.apps.length === 0) {
-  firebase.initializeApp(firebaseConfig);
 
-}
 
 
 
@@ -41,23 +39,22 @@ const Stack = createStackNavigator();
 
 
 const recordOnPressLog = () => {
-  // const db = firebase.firestore();
-//   db.collection("test").add({
-//     first: "Ada",
-//     last: "Lovelace",
-//     born: 1815
-// })
-// .then(function(docRef) {
-//     console.log("Document written with ID: ", docRef.id);
-// })
-// .catch(function(error) {
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+  
+  }
+  const db = firebase.firestore();
+  db.collection("test").add({
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
 
-//     console.error("Error adding document: ", error);
-// });
-Analytics.logEvent('share', {
-  contentType: 'text', 
-  itemId: 'Expo rocks!', 
-  method: 'facebook'
+    console.error("Error adding document: ", error);
 })
 
 
@@ -79,7 +76,7 @@ export default class App extends Component<Props> {
       <Provider store={store}>
 
 
-        <Button onPress={recordOnPressLog} title="Record Log Event" />
+        {/* <Button onPress={recordOnPressLog} title="Record Log Event" /> */}
 
         <NavigationContainer>
 
@@ -87,7 +84,7 @@ export default class App extends Component<Props> {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Detail} />
-        <Stack.Screen name="Publish" component={Counter} />
+        <Stack.Screen name="Publish" component={Publish} />
 
 
       </Stack.Navigator>

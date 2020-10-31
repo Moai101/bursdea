@@ -1,13 +1,47 @@
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 import React,{ Component} from 'react';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+import env from '../env.json';
+
+
+
+// Initialize Firebase
+
+type Props = {};
+
+
 
 
 export class Publish extends Component {
+  constructor(props:Props){
+    super(props)
 
+  }
+
+  press(){
+      const db = firebase.firestore();
+  db.collection("test").add({
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+
+    console.error("Error adding document: ", error);
+});
+
+
+  }
   render(){
     return (
       <View>
         <Text>test</Text>
+        <Button onPress={this.press} title="Record Log Event" />
+
 
       </View>
     );
