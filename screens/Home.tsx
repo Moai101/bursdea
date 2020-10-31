@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import env from '../env.json';
-import { createStackNavigator } from 'react-navigation';
+// import { createStackNavigator } from 'react-navigation';
 
 
 
@@ -29,8 +29,12 @@ import { createStackNavigator } from 'react-navigation';
   
   const db = firebase.firestore();
 
+  interface Props {
+    navigation: any
+  }
 
-  export class Home  extends React.Component {
+
+  export class Home  extends React.Component<Props> {
 
     constructor(props){
       super(props)
