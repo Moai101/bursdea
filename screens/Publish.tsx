@@ -92,7 +92,7 @@ export class Publish extends React.Component implements State {
           style={{ width: 200, height: 44, padding: 8 }}
           placeholder={'Why do you need ideas?'}
         />
-        <Button onPress={this.press.bind(this)} title="Record Log Event" />
+        <Button onPress={this.press.bind(this)} title="Publish" />
 
 
       </View>

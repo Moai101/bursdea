@@ -2,56 +2,101 @@ import React from 'react';
 import { Text, View, FlatList, StyleSheet, TouchableHighlight} from 'react-native';
 import  appReducer from '../reducers/Reducer'
 import { createStore } from 'redux';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+import env from '../env.json';
+import { createStackNavigator } from 'react-navigation';
+
+
+
   const store = createStore(appReducer);
 
-
-
-
-
- export function Home({ navigation }) {
-    let bgColor = '#E31676';
-    return (
-
-
-            <View>
-                  <Text>{store.getState()["counter"]["value"]}</Text>
-
-                <FlatList
-        data={[
-          {key: 'Devin'},
-          {key: 'Dan'},
-          {key: 'Dominic'},
-          {key: 'Jackson'},
-          {key: 'James'},
-          {key: 'Joel'},
-          {key: 'John'},
-          {key: 'Jillian'},
-          {key: 'Jimmy'},
-          {key: 'Julie'},
-        ]}
-        renderItem={({item}) => 
-        
-        
-
-        <TouchableHighlight onPress={() => navigation.navigate('Details',{text:item.key})} underlayColor="transparent">
-        <Text
-        style={styles.item}
-        >{item.key}</Text>
-      </TouchableHighlight>
-    
-    }
-      />
-                
-
-              <TouchableHighlight style={[styles.container]} onPress={() => navigation.navigate('Publish')} underlayColor="transparent">
-        <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
-        </View>
-      </TouchableHighlight>
-      </View>
-
-
-    );
+  const firebaseConfig = {
+    apiKey: env.apiKey,
+    authDomain: env.authDomain,
+    databaseURL: env.databaseURL,
+    projectId: env.projectId,
+    storageBucket: env.storageBucket,
+    messagingSenderId: env.messagingSenderId,
+    appId: env.appId,
+    measurementId: env.measurementId
+  };
+  
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+  
   }
+  
+  const db = firebase.firestore();
+
+
+  export class Home  extends React.Component {
+
+    constructor(props){
+      super(props)
+
+
+    }
+
+    render(){
+      // const navigation = useNavigation();
+      let bgColor = '#E31676';
+
+
+      return(
+
+        <View>
+
+        <FlatList
+  data={[
+  {key: 'Devin'},
+  {key: 'Dan'},
+  {key: 'Dominic'},
+  {key: 'Jackson'},
+  {key: 'James'},
+  {key: 'Joel'},
+  {key: 'John'},
+  {key: 'Jillian'},
+  {key: 'Jimmy'},
+  {key: 'Julie'},
+  ]}
+  renderItem={({item}) => 
+  
+  
+  
+  <TouchableHighlight 
+  onPress={() => this.props.navigation.navigate('Details',{text:item.key})} 
+  underlayColor="black">
+  <Text
+  style={styles.item}
+  >{item.key}</Text>
+  </TouchableHighlight>
+  
+  }
+  />
+        
+  
+      <TouchableHighlight 
+      style={[styles.container]} 
+      onPress={() => this.props.navigation.navigate('Publish')} 
+      underlayColor="transparent">
+  <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
+  </View>
+  </TouchableHighlight>
+  </View>
+
+
+        
+
+
+      )
+    }
+
+  }
+
+
+
+
 
 
   const styles = StyleSheet.create({
