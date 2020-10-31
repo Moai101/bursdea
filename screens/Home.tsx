@@ -31,8 +31,17 @@ import env from '../env.json';
     navigation: any
   }
 
+  interface Data {
+    postId: string;
 
-  export class Home  extends React.Component<Props> {
+  }
+
+  interface State {
+    data:any
+
+  }
+
+  export class Home  extends React.Component<Props,State> {
 
     constructor(props){
       super(props)
@@ -43,8 +52,6 @@ import env from '../env.json';
 
     this.getData()
 
-
-
     }
 
     async getData(){
@@ -52,18 +59,14 @@ import env from '../env.json';
 
       const querySnapshot = await db.collection("posts").get()
 
-      const data = [];
+      const data:Data[] = []
 
       querySnapshot.forEach(doc => {
-        const result = {...doc.data(), ...{"postId": doc.id}}
+        const result:Data = {...doc.data(), ...{"postId": doc.id}}
         data.push(result);
       });
 
       this.setState({ data: data });
-
-
-
-
 
     }
 
@@ -77,6 +80,7 @@ import env from '../env.json';
         <View>
         <FlatList
           data={this.state.data}
+          extraData={this.state.data}
           keyExtractor={(item) => item.postId}
           renderItem={({item}) => 
           
@@ -85,7 +89,7 @@ import env from '../env.json';
           underlayColor="black">
           <Text
           style={styles.item}
-          >{item.userId}</Text>
+          >{item.win}</Text>
           </TouchableHighlight>
           
           }
