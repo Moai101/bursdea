@@ -4,9 +4,7 @@ import {
   View, 
   FlatList, 
   StyleSheet, 
-  TouchableHighlight, 
-  Button,
-  RefreshControl
+  TouchableHighlight
 } from 'react-native';
 import  appReducer from '../reducers/Reducer'
 import { createStore } from 'redux';
@@ -14,6 +12,8 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import env from '../env.json';
 // import { createStackNavigator } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
   const store = createStore(appReducer);
   
 
@@ -97,7 +97,8 @@ import env from '../env.json';
 
 
     render(){
-      let bgColor = '#E31676';
+      let bgColor = '#00B900';
+      
 
 
       return(
@@ -128,6 +129,7 @@ import env from '../env.json';
       onPress={() => this.props.navigation.navigate('Publish')} 
       underlayColor="transparent">
   <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
+  <Icon name="pen" size={30}/>
   </View>
   </TouchableHighlight>
   </View>

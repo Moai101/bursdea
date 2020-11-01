@@ -7,6 +7,8 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { FloatingAction } from "react-native-floating-action";
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
 
 
 interface Props {
@@ -23,13 +25,13 @@ interface Props {
         actions:[
           {
             text: "Write down features",
-            icon: require("../assets/favicon.png"),
+            icon: <Icon name="list" size={20}/>,
             name: "feature",
             position: 2
           },
           {
             text: "Post your idea",
-            icon: require("../assets/favicon.png"),
+            icon: <Icon name="lightbulb" size={20}/>,
             name: "idea",
             position: 1
           }
