@@ -15,15 +15,15 @@ interface Props {
 
         actions:[
           {
-            text: "Accessibility",
+            text: "Write down features",
             icon: require("../assets/favicon.png"),
-            name: "bt_accessibility",
+            name: "feature",
             position: 2
           },
           {
-            text: "Language",
+            text: "Post your idea",
             icon: require("../assets/favicon.png"),
-            name: "bt_language",
+            name: "idea",
             position: 1
           }
         ]
@@ -51,7 +51,18 @@ interface Props {
         <FloatingAction
     actions={this.state.actions}
     onPressItem={name => {
-      console.log(`selected button: ${name}`);
+      if(name === 'idea'){
+        console.log(name)
+       
+        this.props.navigation.navigate('Idea',{text:this.props.route.params.text})
+     
+      } else {
+
+        console.log(name)
+
+        this.props.navigation.navigate('Feature',{text:this.props.route.params.text})
+
+      }
     }}
   />
     <Text>{this.props.route.params.text}</Text>

@@ -5,6 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
 import { Detail } from './screens/Detail'
+import { Idea } from './screens/Idea'
+import { Feature } from './screens/Feature'
+
 import * as Analytics from 'expo-firebase-analytics';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
@@ -85,6 +88,9 @@ export default class App extends Component<Props> {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Details" component={Detail} />
         <Stack.Screen name="Publish" component={Publish} />
+        <Stack.Screen name="Idea" component={Idea} />
+        <Stack.Screen name="Feature" component={Feature} />
+
 
 
       </Stack.Navigator>
