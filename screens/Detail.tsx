@@ -17,7 +17,18 @@ interface Props {
 }
 
 
-  export class Detail extends React.Component<Props>{
+interface State {
+  actions:{
+    text:string,
+    icon:JSX.Element,
+    name:string,
+    position:number
+  }[]
+
+}
+
+
+  export class Detail extends React.Component<Props,State>{
     constructor(props){
       super(props)
       this.state = {
@@ -34,12 +45,17 @@ interface Props {
             icon: <Icon name="lightbulb" size={20}/>,
             name: "idea",
             position: 1
+            
           }
         ]
   
   
       }
 
+
+    }
+
+    start(){
 
     }
 
@@ -51,30 +67,28 @@ interface Props {
 
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
          <Text>Details Screen</Text>
-         <Button
+         {/* <Button
           title="Go to Details... again"
           onPress={() => this.props.navigation.push('Details')}
         />
         <Button title="Go to Home" onPress={() => this.props.navigation.navigate('Home')} />
-        <Button title="Go back" onPress={() => this.props.navigation.goBack()} />
+        <Button title="Go back" onPress={() => this.props.navigation.goBack()} /> */}
         <FloatingAction
     actions={this.state.actions}
     onPressItem={name => {
       if(name === 'idea'){
-        console.log(name)
        
         this.props.navigation.navigate('Idea',{text:this.props.route.params.text})
      
       } else {
-
-        console.log(name)
 
         this.props.navigation.navigate('Feature',{text:this.props.route.params.text})
 
       }
     }}
   />
-    <Text>{this.props.route.params.text}</Text>
+    <Text>{this.props.route.params.userId}</Text>
+
       </View>
 
 
