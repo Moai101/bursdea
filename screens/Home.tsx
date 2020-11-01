@@ -1,5 +1,13 @@
 import React from 'react';
-import { Text, View, FlatList, StyleSheet, TouchableHighlight, Button} from 'react-native';
+import { 
+  Text, 
+  View, 
+  FlatList, 
+  StyleSheet, 
+  TouchableHighlight, 
+  Button,
+  RefreshControl
+} from 'react-native';
 import  appReducer from '../reducers/Reducer'
 import { createStore } from 'redux';
 import * as firebase from 'firebase';
@@ -38,6 +46,7 @@ import env from '../env.json';
 
   interface State {
     data:any
+    isFetching:boolean
 
   }
 
@@ -47,12 +56,28 @@ import env from '../env.json';
       super(props)
 
       this.state = {
-        data:[]
+        data:[],
+        isFetching: false
       }
 
     this.getData()
 
     }
+
+
+    async onRefresh() {
+      const querySnapshot = await db.collection("posts").get()
+
+      const data:Data[] = []
+
+      querySnapshot.forEach(doc => {
+        const result:Data = {...doc.data(), ...{"postId": doc.id}}
+        data.push(result);
+      });
+      this.setState({ isFetching: !this.state.isFetching,data: data });
+      this.setState({ isFetching: !this.state.isFetching });
+
+   }
 
     async getData(){
 
@@ -82,6 +107,8 @@ import env from '../env.json';
           data={this.state.data}
           extraData={this.state.data}
           keyExtractor={(item) => item.postId}
+          onRefresh={() => this.onRefresh()}
+          refreshing={this.state.isFetching}
           renderItem={({item}) => 
           
           <TouchableHighlight 
@@ -105,19 +132,10 @@ import env from '../env.json';
   </TouchableHighlight>
   </View>
 
-
-        
-
-
       )
     }
 
   }
-
-
-
-
-
 
   const styles = StyleSheet.create({
     container: {

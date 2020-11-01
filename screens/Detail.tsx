@@ -1,5 +1,11 @@
 import React from 'react';
-import { Text, View, Button, StyleSheet, TouchableHighlight} from 'react-native';
+import { 
+  Text, 
+  View, 
+  Button, 
+  StyleSheet, 
+  TouchableHighlight,
+} from 'react-native';
 import { FloatingAction } from "react-native-floating-action";
 
 
@@ -7,6 +13,7 @@ interface Props {
   navigation: any
   route:any
 }
+
 
   export class Detail extends React.Component<Props>{
     constructor(props){
