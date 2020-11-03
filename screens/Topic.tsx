@@ -37,6 +37,7 @@ interface State {
   export class Topic extends React.Component<Props,State>{
     constructor(props){
       super(props)
+      console.log(this.props.route.params.postId)
       this.state = {
 
         actions:[
@@ -83,18 +84,8 @@ interface State {
     >
       <Tab.Screen
         name="Ideas"
-        children={()=>
-        <IdeaList 
-          userId={this.props.route.params.userId}
-          postId={this.props.route.params.postId}
-          win={this.props.route.params.win}
-          wni={this.props.route.params.wni}
-          ideas={this.props.route.params.ideas}
-          navigation={{}}
-
-          
-          />}
-        options={{ tabBarLabel: 'Every ideas' }}
+        component={IdeaList}
+        options={{ tabBarLabel: 'Every Ideas' }}
       />
       <Tab.Screen
         name="Rank"
@@ -104,7 +95,7 @@ interface State {
       <Tab.Screen
         name="Profile"
         component={YourIdea}
-        options={{ tabBarLabel: 'Your Ideas' }}
+        options={{ tabBarLabel: 'Your ' }}
       />
     </Tab.Navigator>
 

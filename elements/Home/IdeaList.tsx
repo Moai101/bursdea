@@ -9,7 +9,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 interface Props {
     navigation: any
     route:any
-    propName:string
   }
   
   
@@ -54,24 +53,81 @@ interface Props {
 
         return (
 
-            <View
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-            >
+            <View>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    idea list
+                </Text>
+                <Text>
+                    {/* {JSON.stringify(this.props.route.params.postId)} */}
+                </Text>
+                <FloatingAction />
                 <FloatingAction
     actions={this.state.actions}
     onPressItem={name => {
       if(name === 'idea'){
        
         this.props.navigation.navigate('Idea',{
-          userId:this.props.userId,
-          win:this.props.win,
-          wni:this.props.wni,
-          postId:this.props.postId,
-        //   ideas:this.props.ideas
+          userId:this.props.route.params.userId,
+          win:this.props.route.params.win,
+          wni:this.props.route.params.wni,
+          postId:this.props.route.params.postId
         })
      
       } else {
-          console.log(JSON.stringify(this.props))
 
         this.props.navigation.navigate('Feature',{text:"a"})
 
@@ -79,7 +135,6 @@ interface Props {
     }
 }
   />
-  <Text>{JSON.stringify(this.props)}</Text>
             </View>
         )
       }
