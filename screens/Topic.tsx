@@ -12,6 +12,11 @@ import { IdeaList }  from '../elements/Home/IdeaList'
 import { Rank } from '../elements/Home/Rank'
 import { YourIdea } from '../elements/Home/YourIdea'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import  appReducer from '../reducers/Reducer'
+import { createStore } from 'redux';
+import { addIdea } from '../actions/Idea'
+
+const store = createStore(appReducer);
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -20,6 +25,7 @@ const Tab = createMaterialTopTabNavigator();
 interface Props {
   navigation: any
   route:any
+  postId:string
 }
 
 
@@ -37,7 +43,15 @@ interface State {
   export class Topic extends React.Component<Props,State>{
     constructor(props){
       super(props)
-      console.log(this.props.route.params)
+      store.dispatch(addIdea({
+          postId:this.props.route.params.postId,
+          userId:this.props.route.params.userId,
+          win:this.props.route.params.win,
+          wni:this.props.route.params.wni,
+          ideas:this.props.route.params.ideas
+    
+    }))
+
       this.state = {
 
         actions:[
@@ -55,25 +69,12 @@ interface State {
             
           }
         ]
-  
-  
       }
-
-
     }
-
-    start(){
-
-    }
-
-
 
     render(){
-
       return (
 
-    
-    
 <Tab.Navigator
       initialRouteName="ideas"
       tabBarOptions={{
@@ -84,7 +85,12 @@ interface State {
     >
       <Tab.Screen
         name="Ideas"
-        component={IdeaList}
+        children={()=><IdeaList 
+          navigation={this.props.navigation}
+          route={this.props.route}
+          postId={this.props.route.params.postId}
+          
+          />}
         options={{ tabBarLabel: 'Every Ideas' }}
       />
       <Tab.Screen

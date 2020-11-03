@@ -14,6 +14,7 @@ const store = createStore(appReducer);
 interface Props {
     navigation: any
     route:any
+    postId:string
   }
   
   
@@ -27,13 +28,10 @@ interface Props {
   
   }
 
+
   export class IdeaList extends React.Component<Props,State> {
       constructor(props){
-          super(props)
-          console.log(JSON.stringify(store.getState()))
-          store.dispatch(addIdea("test"))
-          console.log(JSON.stringify(store.getState()))
-
+          super(props)          
           this.state = {
   
             actions:[
@@ -54,12 +52,9 @@ interface Props {
       
       
           }
-
       }
 
-
       render(){
-
         return (
 
             <View>
@@ -120,21 +115,13 @@ interface Props {
                 <Text>
                     idea list
                 </Text>
-                <Text>
-                    {/* {JSON.stringify(this.props.route.params.postId)} */}
-                </Text>
                 <FloatingAction />
                 <FloatingAction
     actions={this.state.actions}
     onPressItem={name => {
       if(name === 'idea'){
-       
-        this.props.navigation.navigate('Idea',{
-          userId:this.props.route.params.userId,
-          win:this.props.route.params.win,
-          wni:this.props.route.params.wni,
-          postId:this.props.route.params.postId
-        })
+
+            this.props.navigation.navigate('Idea',{postId:this.props.postId})
      
       } else {
 

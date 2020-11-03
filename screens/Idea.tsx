@@ -134,6 +134,9 @@ interface Props {
                 title="Post your idea"
                 >
                 </Button>
+                <Text>
+                  {this.props.route.params.postId}
+                  </Text>
             </View>
         )
       }

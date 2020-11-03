@@ -1,11 +1,24 @@
 import { IdeaAction, IdeaActionType } from '../actions/Idea';
 
 export interface IdeaState {
-  value: string;
+  value: {
+    postId:string;
+    userId:string;
+    win:string;
+    wni:string;
+    ideas:any[]
+  };
 }
 
 const initialState: IdeaState = {
-  value: "ideastate",
+  value: {
+    postId:"",
+    userId:"",
+    win:"",
+    wni:"",
+    ideas:[""]
+  
+  },
 };
 
 const ideaReducer = (

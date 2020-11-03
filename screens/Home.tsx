@@ -62,6 +62,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
     this.getData()
 
+
     }
 
 
@@ -98,8 +99,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
     render(){
       let bgColor = '#00B900';
-      
-
 
       return(
 

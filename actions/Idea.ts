@@ -4,10 +4,25 @@ export enum IdeaActionType {
 
   export interface IdeaAction {
     type: IdeaActionType;  
-    value?: string;  
+    value?: {
+      postId:string;
+      userId:string;
+      win:string;
+      wni:string;
+      ideas:any[]
+
+    };  
   }
 
-  export const addIdea = (value: string): IdeaAction => ({
+  export const addIdea = (value: 
+    {
+      postId:string;
+      userId:string;
+      win:string;
+      wni:string;
+      ideas:any[]
+
+  }): IdeaAction => ({
     type: IdeaActionType.ADD_IDEA,
     value,
   });
