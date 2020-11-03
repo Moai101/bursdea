@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button, StyleSheet, TouchableHighlight} from 'react-native';
+import { Text, View, Button, StyleSheet, TouchableHighlight, TextInput} from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import env from '../env.json';
@@ -8,6 +8,17 @@ interface Props {
     navigation: any
     route:any
   }
+
+
+ interface State {
+  userId:string; 
+  ideas:{
+    title:string;
+    detail:string;
+    userId:string;
+  }[]
+
+ } 
 
 
   const firebaseConfig = {
@@ -28,25 +39,42 @@ interface Props {
   
   const db = firebase.firestore();
 
-  export class Idea extends React.Component<Props> {
+  export class Idea extends React.Component<Props,State> {
       constructor(props){
           super(props)
+          this.state = {
+            userId:"",
+            ideas:[]
+          }
 
       }
+
     
-      press(){
-        db.collection("posts").add({
+      async press(){
+        this.setState({ideas:[]})
+
+        let data = await db.collection("posts").doc(this.props.route.params.postId).get()
+        data.data()["ideas"].forEach(element => {
+          this.state.ideas.push(element)
+          
+        });
+        
+        this.state.ideas.push({title:"title",detail:"detail",userId:"userId"})
+
+        db.collection("posts").doc(this.props.route.params.postId).set({
             userId: "idea",
-            win: "test",
-            wni: "test"
+            win:this.props.route.params.win,
+            wni:this.props.route.params.wni,
+            ideas:this.state.ideas
         })
-        .then(function(docRef) {
-            console.log("Document written with ID: ", docRef.id);
+        .then(function(res) {
+            console.log("Document written with ID: ", res);
         })
         .catch(function(error) {
         
             console.error("Error adding document: ", error);
         });
+
       }
 
 
@@ -57,11 +85,16 @@ interface Props {
 
             <View>
                 <Text>
-                    {/* {this.props.route.params.text} */}
                     Idea
                 </Text>
+                <Text>
+                  {this.props.route.params.postId}
+                </Text>
+                <TextInput 
+                
+                />
                 <Button
-                onPress={this.press}
+                onPress={this.press.bind(this)}
                 title="Post your idea"
                 >
                 </Button>

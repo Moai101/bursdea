@@ -78,7 +78,12 @@ interface State {
     onPressItem={name => {
       if(name === 'idea'){
        
-        this.props.navigation.navigate('Idea',{text:this.props.route.params.text})
+        this.props.navigation.navigate('Idea',{
+          userId:this.props.route.params.userId,
+          win:this.props.route.params.win,
+          wni:this.props.route.params.wni,
+          postId:this.props.route.params.postId
+        })
      
       } else {
 
