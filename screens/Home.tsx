@@ -113,7 +113,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
           renderItem={({item}) => 
           
           <TouchableHighlight 
-          onPress={() => this.props.navigation.navigate('Details',{
+          onPress={() => this.props.navigation.navigate('Topic',{
             userId:item.userId,
             win:item.win,
             wni:item.wni,

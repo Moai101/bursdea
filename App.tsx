@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button, Alert} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
-import { Detail } from './screens/Detail'
+import { Topic } from './screens/Topic'
 import { Idea } from './screens/Idea'
 import { Feature } from './screens/Feature'
 
@@ -86,7 +86,7 @@ export default class App extends Component<Props> {
 
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Details" component={Detail} />
+        <Stack.Screen name="Topic" component={Topic} />
         <Stack.Screen name="Publish" component={Publish} />
         <Stack.Screen name="Idea" component={Idea} />
         <Stack.Screen name="Feature" component={Feature} />
