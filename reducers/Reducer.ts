@@ -1,12 +1,13 @@
-import counterReducer, { CounterState } from './CounterReducer';
+import ideaReducer, { IdeaState } from './IdeaReducer';
+
 import { combineReducers } from 'redux';
 
 export interface AppState {
-  counter: CounterState;
+  idea:IdeaState
 }
 
 const appReducer = combineReducers<AppState>({
-  counter: counterReducer,
+  idea:ideaReducer
 });
 
 export default appReducer;

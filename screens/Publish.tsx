@@ -5,7 +5,6 @@ import 'firebase/firestore';
 import env from '../env.json';
 import  appReducer from '../reducers/Reducer'
 import { createStore } from 'redux';
-import { addCount } from '../actions/Count';
 const store = createStore(appReducer);
 
 const firebaseConfig = {
@@ -47,9 +46,6 @@ export class Publish extends React.Component<{},State> implements Function {
 
   constructor(props){
     super(props)
-    // console.log(JSON.stringify(store.getState()))
-    // store.dispatch(addCount(1))
-    // console.log(JSON.stringify(store.getState()))
 
     this.state = {
       win:"",

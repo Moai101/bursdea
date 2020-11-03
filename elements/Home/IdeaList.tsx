@@ -2,6 +2,11 @@ import React from 'react';
 import { Text, View, Button, StyleSheet, TouchableHighlight} from 'react-native';
 import { FloatingAction } from "react-native-floating-action";
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import  appReducer from '../../reducers/Reducer'
+import { createStore } from 'redux';
+import { addIdea } from '../../actions/Idea'
+
+const store = createStore(appReducer);
 
 
 
@@ -25,6 +30,10 @@ interface Props {
   export class IdeaList extends React.Component<Props,State> {
       constructor(props){
           super(props)
+          console.log(JSON.stringify(store.getState()))
+          store.dispatch(addIdea("test"))
+          console.log(JSON.stringify(store.getState()))
+
           this.state = {
   
             actions:[

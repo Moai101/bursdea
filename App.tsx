@@ -15,7 +15,6 @@ import { Provider } from 'react-redux';
 import { Publish } from './screens/Publish'
 import  appReducer from './reducers/Reducer'
 import { createStore } from 'redux';
-import Counter from './containers/Counter'
 
   const store = createStore(appReducer);
 
@@ -77,9 +76,6 @@ export default class App extends Component<Props> {
   render(){
     return (
       <Provider store={store}>
-
-
-        {/* <Button onPress={recordOnPressLog} title="Record Log Event" /> */}
 
         <NavigationContainer>
 

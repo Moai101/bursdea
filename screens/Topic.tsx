@@ -37,7 +37,7 @@ interface State {
   export class Topic extends React.Component<Props,State>{
     constructor(props){
       super(props)
-      console.log(this.props.route.params.postId)
+      console.log(this.props.route.params)
       this.state = {
 
         actions:[
