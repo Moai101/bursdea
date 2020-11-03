@@ -117,7 +117,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
             userId:item.userId,
             win:item.win,
             wni:item.wni,
-            postId:item.postId
+            postId:item.postId,
+            ideas:item.ideas
 
           })} 
           underlayColor="black">

@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { FloatingAction } from "react-native-floating-action";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import IdeaList  from '../elements/Home/IdeaList'
+import { IdeaList }  from '../elements/Home/IdeaList'
 import { Rank } from '../elements/Home/Rank'
 import { YourIdea } from '../elements/Home/YourIdea'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -82,27 +82,32 @@ interface State {
       }}
     >
       <Tab.Screen
-        name="ideas"
-        children={() => <IdeaList userData={"test"} />}
-        options={{ tabBarLabel: 'Home' }}
+        name="Ideas"
+        children={()=>
+        <IdeaList 
+          userId={this.props.route.params.userId}
+          postId={this.props.route.params.postId}
+          win={this.props.route.params.win}
+          wni={this.props.route.params.wni}
+          ideas={this.props.route.params.ideas}
+          navigation={{}}
+
+          
+          />}
+        options={{ tabBarLabel: 'Every ideas' }}
       />
       <Tab.Screen
-        name="Notifications"
+        name="Rank"
         component={Rank}
-        options={{ tabBarLabel: 'Updates' }}
+        options={{ tabBarLabel: 'Rank' }}
       />
       <Tab.Screen
         name="Profile"
         component={YourIdea}
-        options={{ tabBarLabel: 'Profile' }}
+        options={{ tabBarLabel: 'Your Ideas' }}
       />
     </Tab.Navigator>
-          //   <FloatingAction
-          //   actions={actions}
-          //   onPressItem={name => {
-          //       console.log(name)
-          //   }}
-          // />
+
 
 
 
