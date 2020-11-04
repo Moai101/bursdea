@@ -12,9 +12,13 @@ const store = createStore(appReducer);
 
 
 interface Props {
-    navigation: any
-    route:any
-    postId:string
+    navigation: any;
+    route:any;
+    postId:string;
+    userId:string;
+    win:string;
+    wni:string;
+    ideas:any;
   }
   
   
@@ -31,7 +35,8 @@ interface Props {
 
   export class IdeaList extends React.Component<Props,State> {
       constructor(props){
-          super(props)          
+          super(props)
+          console.log(this.props.ideas)          
           this.state = {
   
             actions:[
@@ -57,65 +62,13 @@ interface Props {
       render(){
         return (
 
-            <View>
+            <View
+            style={styles.backgroundImage}
+            >
                 <Text>
-                    idea list
+                    {this.props.win}
                 </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <Text>
-                    idea list
-                </Text>
-                <FloatingAction />
+        <Text>{this.props.postId}</Text>
                 <FloatingAction
     actions={this.state.actions}
     onPressItem={name => {
@@ -135,3 +88,12 @@ interface Props {
         )
       }
   }
+
+  const styles = StyleSheet.create({
+    backgroundImage: {
+        ...StyleSheet.absoluteFillObject,
+      },
+
+  })
+
+

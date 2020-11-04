@@ -23,9 +23,10 @@ const Tab = createMaterialTopTabNavigator();
 
 
 interface Props {
-  navigation: any
-  route:any
-  postId:string
+  navigation: any;
+  route:any;
+  postId:string;
+  userId:string;
 }
 
 
@@ -80,7 +81,7 @@ interface State {
       tabBarOptions={{
         activeTintColor: '#e91e63',
         labelStyle: { fontSize: 12 },
-        style: { backgroundColor: 'powderblue' },
+        style: { backgroundColor: '#fff' },
       }}
     >
       <Tab.Screen
@@ -89,6 +90,10 @@ interface State {
           navigation={this.props.navigation}
           route={this.props.route}
           postId={this.props.route.params.postId}
+          userId={"test"}
+          win={this.props.route.params.win}
+          wni={this.props.route.params.wni}
+          ideas={this.props.route.params.ideas}
           
           />}
         options={{ tabBarLabel: 'Every Ideas' }}
@@ -101,7 +106,7 @@ interface State {
       <Tab.Screen
         name="Profile"
         component={YourIdea}
-        options={{ tabBarLabel: 'Your ' }}
+        options={{ tabBarLabel: 'Your Ideas' }}
       />
     </Tab.Navigator>
 

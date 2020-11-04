@@ -25,6 +25,7 @@ interface Props {
   }[],
   title:string;
   detail:string;
+  authorId:string;
 
  } 
 
@@ -61,13 +62,13 @@ interface Props {
             userId:"",
             ideas:[],
             detail:"",
+            authorId:""
           }
 
       }
 
     
       async press(){
-        this.setState({ideas:[]})
 
         let data = await db.collection("posts").doc(this.props.route.params.postId).get()
 
@@ -79,7 +80,7 @@ interface Props {
         this.state.ideas.push({title:this.state.title,detail:this.state.detail,userId:"userId"})
 
         db.collection("posts").doc(this.props.route.params.postId).set({
-            userId: "idea",
+          authorId: "idea",
             win:this.props.route.params.win,
             wni:this.props.route.params.wni,
             ideas:this.state.ideas
@@ -141,3 +142,10 @@ interface Props {
         )
       }
   }
+
+  const styles = StyleSheet.create({
+    backgroundImage: {
+        ...StyleSheet.absoluteFillObject,
+      },
+
+  })

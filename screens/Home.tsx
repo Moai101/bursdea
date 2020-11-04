@@ -102,7 +102,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
       return(
 
-        <View>
+        <View
+        style={styles.backgroundImage}
+        >
         <FlatList
           data={this.state.data}
           extraData={this.state.data}
@@ -113,7 +115,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
           
           <TouchableHighlight 
           onPress={() => this.props.navigation.navigate('Topic',{
-            userId:item.userId,
+            authorId:item.authorId,
             win:item.win,
             wni:item.wni,
             postId:item.postId,
@@ -169,6 +171,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
     circleButtonTitle: {
       fontSize: 24,
       lineHeight: 24,
+    },
+    backgroundImage: {
+      ...StyleSheet.absoluteFillObject,
     },
     item: {
         padding: 10,

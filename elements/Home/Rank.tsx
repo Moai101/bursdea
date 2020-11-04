@@ -54,7 +54,7 @@ interface Props {
         return (
 
             <View
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+            style={styles.backgroundImage}
             >
                 <FloatingAction
     actions={this.state.actions}
@@ -81,3 +81,10 @@ interface Props {
         )
       }
   }
+
+  const styles = StyleSheet.create({
+    backgroundImage: {
+        ...StyleSheet.absoluteFillObject,
+      },
+
+  })

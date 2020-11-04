@@ -66,9 +66,10 @@ export class Publish extends React.Component<{},State> implements Function {
   press(){
 
   db.collection("posts").add({
-    userId: "Ada",
+    authorId: "Id of authenticated user",
     win: this.state.win,
-    wni: this.state.wni
+    wni: this.state.wni,
+    ideas:[]
 })
 .then(function(docRef) {
     console.log("Document written with ID: ", docRef.id);
