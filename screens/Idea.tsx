@@ -142,7 +142,9 @@ interface Props {
 
             <View>
 
-        <Text>Timer:{this.state.current.toLocaleString()}</Text>
+        <Text
+        style={styles.timer}
+        >{this.state.current.toLocaleString()}</Text>
               <Text>Your points:</Text>
                 <TextInput 
                 value={this.state.title}
@@ -172,5 +174,8 @@ interface Props {
     backgroundImage: {
         ...StyleSheet.absoluteFillObject,
       },
+      timer:{
+        fontSize: 30
+      }
 
   })

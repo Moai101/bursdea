@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { FloatingAction } from "react-native-floating-action";
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Detail }  from '../elements/Home/Detail'
 import { IdeaList }  from '../elements/Home/IdeaList'
 import { Rank } from '../elements/Home/Rank'
 import { YourIdea } from '../elements/Home/YourIdea'
@@ -78,13 +79,29 @@ interface State {
       return (
 
 <Tab.Navigator
-      initialRouteName="ideas"
+      initialRouteName="Detail"
       tabBarOptions={{
         activeTintColor: '#e91e63',
         labelStyle: { fontSize: 12 },
         style: { backgroundColor: '#fff' },
       }}
     >
+
+<Tab.Screen
+        name="Detail"
+        children={()=><Detail 
+          navigation={this.props.navigation}
+          route={this.props.route}
+          authorId={this.props.route.params.authorId}
+          postId={this.props.route.params.postId}
+          userId={"test"}
+          win={this.props.route.params.win}
+          wni={this.props.route.params.wni}
+          ideas={this.props.route.params.ideas}
+          
+          />}
+        options={{ tabBarLabel: 'Detail' }}
+      />
       <Tab.Screen
         name="Ideas"
         children={()=><IdeaList 
