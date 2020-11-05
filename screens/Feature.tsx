@@ -19,10 +19,9 @@ interface Props {
         return (
 
             <View>
-                <Text>
-                    {this.props.route.params.text}
-                    Feature
-                </Text>
+
+              <Text>Timer:</Text>
+              <Text>Your points:</Text>
             </View>
         )
       }

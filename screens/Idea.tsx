@@ -7,6 +7,8 @@ import { IdeaList } from '../elements/Home/IdeaList'
 import { Rank } from '../elements/Home/Rank'
 import { YourIdea } from '../elements/Home/YourIdea'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import CountDown from 'react-native-countdown-component';
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -65,6 +67,7 @@ interface Props {
             authorId:""
           }
 
+
       }
 
     
@@ -119,6 +122,15 @@ interface Props {
         return (
 
             <View>
+
+              <Text>Timer:</Text>
+              <Text>Your points:</Text>
+              <CountDown
+        until={10}
+        onFinish={() => alert('finished')}
+        onPress={() => alert('hello')}
+        size={20}
+      />
                 <TextInput 
                 value={this.state.title}
                 onChangeText={this.titleTextChange.bind(this)}
