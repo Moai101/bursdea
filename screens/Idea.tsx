@@ -7,8 +7,14 @@ import { IdeaList } from '../elements/Home/IdeaList'
 import { Rank } from '../elements/Home/Rank'
 import { YourIdea } from '../elements/Home/YourIdea'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import CountDown from 'react-native-countdown-component';
 
+
+// https://github.com/Alhydra/React-Native-Countdown-Timer-Example-Using-MomentJs/blob/master/App.js
+
+// https://www.wakuwakubank.com/posts/606-javascript-moment/
+
+// 　デバイスから現在の時刻を取得
+// https://reactnative-st.com/2020/07/09/%E3%80%90reactnative%E3%80%91%E7%8F%BE%E5%9C%A8%E3%81%AE%E6%97%A5%E4%BB%98%E3%80%81%E6%99%82%E9%96%93%E8%A1%A8%E7%A4%BA%E3%82%92%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95/
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -28,6 +34,7 @@ interface Props {
   title:string;
   detail:string;
   authorId:string;
+  current:Date;
 
  } 
 
@@ -57,6 +64,7 @@ interface Props {
   const db = firebase.firestore();
 
   export class Idea extends React.Component<Props,State> implements Function {
+      interval: NodeJS.Timeout;
       constructor(props){
           super(props)
           this.state = {
@@ -64,10 +72,10 @@ interface Props {
             userId:"",
             ideas:[],
             detail:"",
-            authorId:""
+            authorId:"",
+            current: new Date()
           }
-
-
+          let test:string = this.state.current.toLocaleString()
       }
 
     
@@ -115,6 +123,17 @@ interface Props {
 
       }
 
+      componentDidMount() {
+        //一秒に一回this.setStateを呼び出す
+        this.interval = setInterval(() => (
+          this.setState({current:new Date()})
+        ), 1000);
+      }
+
+      componentWillUnmount() {
+        clearInterval(this.interval);
+      }
+
 
 
       render(){
@@ -123,14 +142,8 @@ interface Props {
 
             <View>
 
-              <Text>Timer:</Text>
+        <Text>Timer:{this.state.current.toLocaleString()}</Text>
               <Text>Your points:</Text>
-              <CountDown
-        until={10}
-        onFinish={() => alert('finished')}
-        onPress={() => alert('hello')}
-        size={20}
-      />
                 <TextInput 
                 value={this.state.title}
                 onChangeText={this.titleTextChange.bind(this)}
