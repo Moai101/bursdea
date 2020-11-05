@@ -27,6 +27,7 @@ interface Props {
   route:any;
   postId:string;
   userId:string;
+  auhorId:string;
 }
 
 
@@ -89,6 +90,7 @@ interface State {
         children={()=><IdeaList 
           navigation={this.props.navigation}
           route={this.props.route}
+          authorId={this.props.route.params.authorId}
           postId={this.props.route.params.postId}
           userId={"test"}
           win={this.props.route.params.win}

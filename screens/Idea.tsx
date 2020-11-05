@@ -30,7 +30,7 @@ interface Props {
  } 
 
  interface Function {
-   press:() => void;
+   onPress:() => void;
    titleTextChange:(text:string) => void;
    detailTextChange:(text:string) => void;
  }
@@ -68,32 +68,34 @@ interface Props {
       }
 
     
-      async press(){
+      async onPress(){
 
-        let data = await db.collection("posts").doc(this.props.route.params.postId).get()
+                this.props.route.params.ideas.forEach(element => {
+                  this.state.ideas.push(element)
+                  
+                      });
+              
 
-        data.data()["ideas"].forEach(element => {
-          this.state.ideas.push(element)
-          
-        });
-        
-        this.state.ideas.push({title:this.state.title,detail:this.state.detail,userId:"userId"})
+              
+              this.state.ideas.push({title:this.state.title,detail:this.state.detail,userId:"userId"})
+              console.log(this.state.ideas)
 
-        db.collection("posts").doc(this.props.route.params.postId).set({
-          authorId: "idea",
-            win:this.props.route.params.win,
-            wni:this.props.route.params.wni,
-            ideas:this.state.ideas
-        })
-        .then(function(res) {
-            console.log("Document written with ID: ", res);
+              db.collection("posts").doc(this.props.route.params.postId).set({
+                  authorId: this.props.route.params.authorId,
+                  win:this.props.route.params.win,
+                  wni:this.props.route.params.wni,
+                  ideas:this.state.ideas
+              })
+              .then(function(res) {
+                  console.log("Document written with ID: ", res);
 
-        })
-        .catch(function(error) {
-        
-            console.error("Error adding document: ", error);
-        });
-        this.setState({title:"",detail:""})
+              })
+              .catch(function(error) {
+              
+                  console.error("Error adding document: ", error);
+              });
+              
+              this.setState({title:"",detail:""})
 
       }
 
@@ -122,22 +124,20 @@ interface Props {
                 onChangeText={this.titleTextChange.bind(this)}
                 placeholder={'Enter title'}
                 style={{ width: 200, height: 44, padding: 8 }}
+                multiline
                 />
                 <TextInput 
                 value={this.state.detail}
                 onChangeText={this.detailTextChange.bind(this)}
                 placeholder={'Enter detail'}
                 style={{ width: 200, height: 44, padding: 8 }}
+                multiline
                 />
-                <Text>{this.state.detail}</Text>
                 <Button
-                onPress={this.press.bind(this)}
+                onPress={this.onPress.bind(this)}
                 title="Post your idea"
                 >
                 </Button>
-                <Text>
-                  {this.props.route.params.postId}
-                  </Text>
             </View>
         )
       }

@@ -14,6 +14,7 @@ const store = createStore(appReducer);
 interface Props {
     navigation: any;
     route:any;
+    authorId:string;
     postId:string;
     userId:string;
     win:string;
@@ -74,7 +75,14 @@ interface Props {
     onPressItem={name => {
       if(name === 'idea'){
 
-            this.props.navigation.navigate('Idea',{postId:this.props.postId})
+            this.props.navigation.navigate('Idea',{
+              authorId:this.props.authorId,
+              postId:this.props.postId,
+              userId:this.props.userId,
+              win:this.props.win,
+              wni:this.props.wni,
+              ideas:this.props.ideas
+            })
      
       } else {
 

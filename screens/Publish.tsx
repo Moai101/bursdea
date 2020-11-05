@@ -28,7 +28,7 @@ const db = firebase.firestore();
 
 
 interface Function {
-  press:() => void;
+  onPress:() => void;
   winTextChange:(text:string) => void;
   wniTextChange:(text:string) => void;
 
@@ -63,7 +63,7 @@ export class Publish extends React.Component<{},State> implements Function {
 
   }
 
-  press(){
+  onPress(){
 
   db.collection("posts").add({
     authorId: "Id of authenticated user",
@@ -97,7 +97,7 @@ export class Publish extends React.Component<{},State> implements Function {
           style={{ width: 200, height: 44, padding: 8 }}
           placeholder={'Why do you need ideas?'}
         />
-        <Button onPress={this.press.bind(this)} title="Publish" />
+        <Button onPress={this.onPress.bind(this)} title="Publish" />
 
 
       </View>
