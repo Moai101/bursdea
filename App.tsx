@@ -18,6 +18,8 @@ import { createStore } from 'redux';
 
   const store = createStore(appReducer);
 
+  // https://reactnavigation.org/docs/headers/
+
 
 
 

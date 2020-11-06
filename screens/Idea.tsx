@@ -3,9 +3,6 @@ import { Text, View, Button, StyleSheet, TouchableHighlight, TextInput} from 're
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import env from '../env.json';
-import { IdeaList } from '../elements/Home/IdeaList'
-import { Rank } from '../elements/Home/Rank'
-import { YourIdea } from '../elements/Home/YourIdea'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 
@@ -81,7 +78,13 @@ interface Props {
     
       async onPress(){
 
-                this.props.route.params.ideas.forEach(element => {
+        let data = await db.collection("posts").doc(this.props.route.params.postId).get()
+
+        let ideas = data.data()["ideas"]
+
+
+
+                ideas.forEach(element => {
                   this.state.ideas.push(element)
                   
                       });
@@ -89,13 +92,13 @@ interface Props {
 
               
               this.state.ideas.push({title:this.state.title,detail:this.state.detail,userId:"userId"})
-              console.log(this.state.ideas)
 
               db.collection("posts").doc(this.props.route.params.postId).set({
-                  authorId: this.props.route.params.authorId,
-                  win:this.props.route.params.win,
-                  wni:this.props.route.params.wni,
-                  ideas:this.state.ideas
+                authorId: data.data()["authorId"],
+                win:data.data()["win"],
+                wni:data.data()["wni"],
+                ideas:this.state.ideas,
+                features:data.data()["features"]
               })
               .then(function(res) {
                   console.log("Document written with ID: ", res);

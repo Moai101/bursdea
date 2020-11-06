@@ -86,7 +86,7 @@ interface Props {
      
       } else {
 
-        this.props.navigation.navigate('Feature',{text:"a"})
+        this.props.navigation.navigate('Feature',{postId:this.props.postId})
 
       }
     }
