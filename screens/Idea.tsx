@@ -26,6 +26,8 @@ interface Props {
   title:string;
   detail:string;
   current:Date;
+  data:any;
+  points:number
 
  } 
 
@@ -62,22 +64,26 @@ interface Props {
             title:"",
             userId:"",
             detail:"",
-            current: new Date()
+            current: new Date(),
+            data:null,
+            points:0
           }
           let test:string = this.state.current.toLocaleString()
+
+          this.getData()
+
+          
       }
 
-    
-      async onPress(){
-
-        let data = await db.collection("posts").doc(this.props.route.params.postId).get()
+      async getData(){
 
 
-        let users = data.data()["users"]
-  
-  
-        console.log(users)
-  
+
+        let firestoreData = await db.collection("posts").doc(this.props.route.params.postId).get()
+        let data = firestoreData.data()
+
+
+        let users = data["users"]
   
         if(users["userId"] === undefined){
   
@@ -89,22 +95,46 @@ interface Props {
   
   
         }
+
+        let points = users["userId"]["points"]
+        this.setState({
+          data:data,
+          points:points
+        
+        })
+
+
+
+      }
+
+
+
+    
+      async onPress(){
+
+
   
-        let user = users["userId"]
+        let user = this.state.data.users["userId"]
   
         let ideas = user["ideas"]
-  
-  
         
-        
+        let points = user["points"]
+
+        points = points + 5
+
+
+        console.log(user)
+
+
         ideas.push({title:this.state.title,detail:this.state.detail,comments:{}})
         
   
-        db.collection("posts").doc(this.props.route.params.postId).set({
-            authorId: data.data()["authorId"],
-            win:data.data()["win"],
-            wni:data.data()["wni"],
-            users:users
+        db.collection("posts").doc(this.props.route.params.postId).update({
+            authorId: this.state.data["authorId"],
+            win:this.state.data["win"],
+            wni:this.state.data["wni"],
+            users:this.state.data.users,
+            "users.userId.points":points
   
   
   
@@ -118,7 +148,7 @@ interface Props {
             console.error("Error adding document: ", error);
         });
               
-              this.setState({title:"",detail:""})
+              this.setState({title:"",detail:"",points:points})
 
       }
 
@@ -157,7 +187,7 @@ interface Props {
         <Text
         style={styles.timer}
         >{this.state.current.toLocaleString()}</Text>
-              <Text>Your points:</Text>
+              <Text>Your points:{this.state.points}</Text>
                 <TextInput 
                 value={this.state.title}
                 onChangeText={this.titleTextChange.bind(this)}
