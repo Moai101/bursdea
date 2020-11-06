@@ -82,10 +82,15 @@ interface State {
 
       let features = user["features"]
 
+      let feature = {
+        "body":this.state.feature,
+        "comments":{}
+      }
+
 
       
       
-      features.push(this.state.feature)
+      features.push(feature)
       
 
       db.collection("posts").doc(this.props.route.params.postId).set({

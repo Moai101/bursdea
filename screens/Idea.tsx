@@ -97,7 +97,7 @@ interface Props {
   
         
         
-        ideas.push({title:this.state.title,detail:this.state.detail})
+        ideas.push({title:this.state.title,detail:this.state.detail,comments:{}})
         
   
         db.collection("posts").doc(this.props.route.params.postId).set({
