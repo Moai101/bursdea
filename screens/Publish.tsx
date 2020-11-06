@@ -69,8 +69,7 @@ export class Publish extends React.Component<{},State> implements Function {
     authorId: "Id of authenticated user",
     win: this.state.win,
     wni: this.state.wni,
-    ideas:[],
-    features:[]
+    users:{}
 })
 .then(function(docRef) {
     console.log("Document written with ID: ", docRef.id);

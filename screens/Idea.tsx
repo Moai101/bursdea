@@ -23,14 +23,8 @@ interface Props {
 
  interface State {
   userId:string; 
-  ideas:{
-    title:string;
-    detail:string;
-    userId:string;
-  }[],
   title:string;
   detail:string;
-  authorId:string;
   current:Date;
 
  } 
@@ -67,9 +61,7 @@ interface Props {
           this.state = {
             title:"",
             userId:"",
-            ideas:[],
             detail:"",
-            authorId:"",
             current: new Date()
           }
           let test:string = this.state.current.toLocaleString()
@@ -80,34 +72,51 @@ interface Props {
 
         let data = await db.collection("posts").doc(this.props.route.params.postId).get()
 
-        let ideas = data.data()["ideas"]
 
-
-
-                ideas.forEach(element => {
-                  this.state.ideas.push(element)
-                  
-                      });
-              
-
-              
-              this.state.ideas.push({title:this.state.title,detail:this.state.detail,userId:"userId"})
-
-              db.collection("posts").doc(this.props.route.params.postId).set({
-                authorId: data.data()["authorId"],
-                win:data.data()["win"],
-                wni:data.data()["wni"],
-                ideas:this.state.ideas,
-                features:data.data()["features"]
-              })
-              .then(function(res) {
-                  console.log("Document written with ID: ", res);
-
-              })
-              .catch(function(error) {
-              
-                  console.error("Error adding document: ", error);
-              });
+        let users = data.data()["users"]
+  
+  
+        console.log(users)
+  
+  
+        if(users["userId"] === undefined){
+  
+          users["userId"] = {
+            ideas:[],
+            features:[],
+            points:0
+          }
+  
+  
+        }
+  
+        let user = users["userId"]
+  
+        let ideas = user["ideas"]
+  
+  
+        
+        
+        ideas.push({title:this.state.title,detail:this.state.detail})
+        
+  
+        db.collection("posts").doc(this.props.route.params.postId).set({
+            authorId: data.data()["authorId"],
+            win:data.data()["win"],
+            wni:data.data()["wni"],
+            users:users
+  
+  
+  
+        })
+        .then(function(res) {
+            console.log("Document written with ID: ", res);
+  
+        })
+        .catch(function(error) {
+        
+            console.error("Error adding document: ", error);
+        });
               
               this.setState({title:"",detail:""})
 

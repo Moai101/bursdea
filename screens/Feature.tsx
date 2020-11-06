@@ -11,14 +11,6 @@ interface Props {
     route:any
   }
 
-interface State {
-  feature:string;
-  features:{
-    feature:string,
-    userId:string
-  }[]
-}
-
 interface Function {
   onPress:() => void;
   featureTextChange:(text:string) => void;
@@ -42,13 +34,16 @@ if (firebase.apps.length === 0) {
 
 const db = firebase.firestore();
 
+interface State {
+  feature:string;
+}
+
   export class Feature extends React.Component<Props,State> implements Function {
       constructor(props){
           super(props)
 
           this.state = {
-            feature:"",
-            features:[],
+            feature:"test"
           }
 
       }
@@ -64,28 +59,42 @@ const db = firebase.firestore();
 
 
       let data = await db.collection("posts").doc(this.props.route.params.postId).get()
-     
-     console.log(this.props.route.params.postId)
-      console.log(data.data())
-
-      let features = data.data()["features"]
 
 
-        features.forEach(element => {
-          this.state.features.push(element)
-          
-              });
+      let users = data.data()["users"]
+
+
+      console.log(users)
+
+
+      if(users["userId"] === undefined){
+
+        users["userId"] = {
+          ideas:[],
+          features:[],
+          points:0
+        }
+
+
+      }
+
+      let user = users["userId"]
+
+      let features = user["features"]
+
+
       
-
       
-      this.state.features.push({feature:this.state.feature,userId:"userId"})
+      features.push(this.state.feature)
+      
 
       db.collection("posts").doc(this.props.route.params.postId).set({
           authorId: data.data()["authorId"],
           win:data.data()["win"],
           wni:data.data()["wni"],
-          ideas:data.data()["ideas"],
-          features:this.state.features
+          users:users
+
+
 
       })
       .then(function(res) {
