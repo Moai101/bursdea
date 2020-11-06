@@ -110,7 +110,7 @@ interface Props {
 
 
     
-      async onPress(){
+      onPress(){
 
 
   

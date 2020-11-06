@@ -36,6 +36,8 @@ const db = firebase.firestore();
 
 interface State {
   feature:string;
+  data:any;
+  points:number
 }
 
   export class Feature extends React.Component<Props,State> implements Function {
@@ -43,8 +45,44 @@ interface State {
           super(props)
 
           this.state = {
-            feature:"test"
+            feature:"",
+            data:null,
+            points:0
           }
+
+          this.getData()
+
+      }
+
+      async getData(){
+
+
+
+        let firestoreData = await db.collection("posts").doc(this.props.route.params.postId).get()
+        let data = firestoreData.data()
+
+
+        let users = data["users"]
+  
+        if(users["userId"] === undefined){
+  
+          users["userId"] = {
+            ideas:[],
+            features:[],
+            points:0
+          }
+  
+  
+        }
+
+        let points = users["userId"]["points"]
+        this.setState({
+          data:data,
+          points:points
+        
+        })
+
+
 
       }
 
@@ -55,30 +93,14 @@ interface State {
 
       }
 
-     async onPress(){
+    onPress(){
 
+      let user = this.state.data.users["userId"]
+  
+      
+      let points = user["points"]
 
-      let data = await db.collection("posts").doc(this.props.route.params.postId).get()
-
-
-      let users = data.data()["users"]
-
-
-      console.log(users)
-
-
-      if(users["userId"] === undefined){
-
-        users["userId"] = {
-          ideas:[],
-          features:[],
-          points:0
-        }
-
-
-      }
-
-      let user = users["userId"]
+      points = points + 1
 
       let features = user["features"]
 
@@ -94,12 +116,11 @@ interface State {
       
 
       db.collection("posts").doc(this.props.route.params.postId).set({
-          authorId: data.data()["authorId"],
-          win:data.data()["win"],
-          wni:data.data()["wni"],
-          users:users
-
-
+        authorId: this.state.data["authorId"],
+        win:this.state.data["win"],
+        wni:this.state.data["wni"],
+        users:this.state.data.users,
+        "users.userId.points":points
 
       })
       .then(function(res) {
@@ -111,7 +132,7 @@ interface State {
           console.error("Error adding document: ", error);
       });
       
-      this.setState({feature:""})
+      this.setState({feature:"",points:points})
 
       }
 
@@ -122,7 +143,7 @@ interface State {
             <View>
 
               <Text>Timer:</Text>
-              <Text>Your points:</Text>
+              <Text>Your points:{this.state.points}</Text>
               <TextInput
               value={this.state.feature}
               placeholder={'Enter feature'}
