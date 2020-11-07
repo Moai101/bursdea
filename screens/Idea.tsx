@@ -4,6 +4,12 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import env from '../env.json';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { WebView } from 'react-native-webview';
+import {Line} from 'react-chartjs-2';
+
+
+
+
 
 
 // https://github.com/Alhydra/React-Native-Countdown-Timer-Example-Using-MomentJs/blob/master/App.js
@@ -55,6 +61,8 @@ interface Props {
   }
   
   const db = firebase.firestore();
+
+  
 
   export class Idea extends React.Component<Props,State> implements Function {
       interval: NodeJS.Timeout;
@@ -176,13 +184,27 @@ interface Props {
         clearInterval(this.interval);
       }
 
+      
+
 
 
       render(){
 
+          const html = `
+                <html>
+                <head></head>
+                <body>
+                <canvas id="canvas"/>
+                </body>
+                </html>
+              `;
+
+
         return (
 
-            <View>
+            <View
+            style={styles.container}
+            >
 
         <Text
         style={styles.timer}
@@ -207,17 +229,33 @@ interface Props {
                 title="Post your idea"
                 >
                 </Button>
+
+
+                
+
+
             </View>
         )
       }
   }
 
+
   const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'stretch',
+  },
     backgroundImage: {
         ...StyleSheet.absoluteFillObject,
       },
       timer:{
         fontSize: 30
-      }
+      },
+      loginWebView: {
+        flex: 1,
+        marginTop: 30,
+        marginBottom: 20
+    }
 
   })

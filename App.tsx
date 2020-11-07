@@ -7,6 +7,10 @@ import { Home } from './screens/Home'
 import { Topic } from './screens/Topic'
 import { Idea } from './screens/Idea'
 import { Feature } from './screens/Feature'
+import { SignIn } from './screens/SignIn'
+import { SignUp } from './screens/SignUp'
+
+
 
 import * as Analytics from 'expo-firebase-analytics';
 import * as firebase from 'firebase';
@@ -43,7 +47,9 @@ const Stack = createStackNavigator();
 
 
 
-type Props = {};
+type Props = {
+
+};
 
 
 
@@ -53,7 +59,9 @@ export default class App extends Component<Props> {
     super(props)
   }
 
+
   render(){
+
     return (
       <Provider store={store}>
 
@@ -61,11 +69,49 @@ export default class App extends Component<Props> {
 
 
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen 
+        name="Home" 
+        component={Home}
+
+        options={({ navigation, route }) => ({
+
+          headerRight: () => (
+            <Button
+              onPress={() => 
+                navigation.navigate("SignIn")
+            
+            }
+              title="Sign In"
+              color="#00cc00"
+            />
+          )
+
+        })}
+         />
         <Stack.Screen name="Topic" component={Topic} />
         <Stack.Screen name="Publish" component={Publish} />
         <Stack.Screen name="Idea" component={Idea} />
         <Stack.Screen name="Feature" component={Feature} />
+        <Stack.Screen name="SignIn" 
+        component={SignIn}
+        options={({ navigation, route }) => ({
+
+          headerRight: () => (
+            <Button
+              onPress={() => 
+                navigation.navigate("SignUp")
+            
+            }
+              title="Sign up"
+              color="#00cc00"
+            />
+          )
+
+        })}
+        />
+                <Stack.Screen name="SignUp" 
+        component={SignUp}
+        />
 
 
 
