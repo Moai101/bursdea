@@ -4,7 +4,9 @@ import {
   View, 
   FlatList, 
   StyleSheet, 
-  TouchableHighlight
+  TouchableHighlight,
+  TextInput,
+  Button
 } from 'react-native';
 import  appReducer from '../reducers/Reducer'
 import { createStore } from 'redux';
@@ -13,6 +15,8 @@ import 'firebase/firestore';
 import env from '../env.json';
 // import { createStackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Input } from 'react-native-elements';
+
 
   const store = createStore(appReducer);
   
@@ -45,8 +49,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
   }
 
   interface State {
-    data:any
-    isFetching:boolean
+      email:string;
+      password:string;
 
   }
 
@@ -56,16 +60,47 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
       super(props)
 
       this.state = {
-        data:[],
-        isFetching: false
+          email:"",
+          password:""
       }
 
 
 
     }
 
+    onPress(){
+
+        let props = this.props
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.email).then(function(res){
+
+            alert("success")
+            props.navigation.navigate("Home")
 
 
+
+
+        }).catch(function(error) {
+           
+           alert(error)
+          });
+
+
+
+
+    }
+
+    emailTextChange(text:string){
+
+        this.setState({email:text})
+
+    }
+
+    passwordTextChange(text:string){
+
+        this.setState({password:text})
+        
+
+    }
 
     render(){
       let bgColor = '#00B900';
@@ -75,7 +110,39 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
         <View
         style={styles.backgroundImage}
         >
-            <Text>test</Text>
+            <Text>Sign In</Text>
+
+
+<Input
+    value={this.state.email}
+    onChangeText={this.emailTextChange.bind(this)}
+  placeholder='Enter Emai'
+  leftIcon={
+    <Icon
+      name='user'
+      size={24}
+      color='black'
+    />
+  }
+/>
+
+<Input placeholder="Password" 
+ value={this.state.password}
+ onChangeText={this.passwordTextChange.bind(this)}
+  leftIcon={
+    <Icon
+      name='lock'
+      size={24}
+      color='black'
+    />
+  }
+secureTextEntry={true} />
+
+<Button 
+title="sign in"
+onPress={this.onPress.bind(this)}
+/>
+                
   </View>
 
       )
