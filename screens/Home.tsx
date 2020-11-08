@@ -21,6 +21,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import { Divider } from 'react-native-elements';
 
   const store = createStore(appReducer);
   
@@ -149,7 +150,7 @@ import { NavigationContainer } from '@react-navigation/native';
           onRefresh={() => this.onRefresh()}
           refreshing={this.state.isFetching}
           renderItem={({item}) => 
-          
+          <View>
           <TouchableHighlight 
           onPress={() => this.props.navigation.navigate('Topic',{
             authorId:item.authorId,
@@ -164,6 +165,8 @@ import { NavigationContainer } from '@react-navigation/native';
           style={styles.item}
           >{item.win}</Text>
           </TouchableHighlight>
+            <Divider />
+            </View>
           
           }
           />

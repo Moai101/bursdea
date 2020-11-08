@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import env from '../../env.json';
+import { Divider } from 'react-native-elements';
 
 
 
@@ -132,7 +133,7 @@ interface Props {
         return (
 
             <View
-            
+            style={styles.backgroundImage}
             >
 
         <FlatList 
@@ -142,12 +143,35 @@ interface Props {
         <View>
           <Text>{item}</Text>
           <Text>{this.state.users[item].points}</Text>
+          <Divider />
 
         </View>
         
       
       }
         />  
+                        <FloatingAction
+    actions={this.state.actions}
+    onPressItem={name => {
+      if(name === 'idea'){
+
+            this.props.navigation.navigate('Idea',{
+              authorId:this.props.authorId,
+              postId:this.props.postId,
+              userId:this.props.userId,
+              win:this.props.win,
+              wni:this.props.wni,
+              ideas:this.props.ideas
+            })
+     
+      } else {
+
+        this.props.navigation.navigate('Feature',{postId:this.props.postId})
+
+      }
+    }
+}
+  />
 
             </View>
         )
