@@ -1,7 +1,8 @@
 import React,{ Component} from 'react';
 import env from './env.json';
 import { StyleSheet, Text, View, Button, Alert} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { DrawerActions } from '@react-navigation/routers'
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from './screens/Home'
 import { Topic } from './screens/Topic'
@@ -9,9 +10,14 @@ import { Idea } from './screens/Idea'
 import { Feature } from './screens/Feature'
 import { SignIn } from './screens/SignIn'
 import { SignUp } from './screens/SignUp'
-
-
-
+import { EditProfile } from './screens/EditProfile'
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
 import * as Analytics from 'expo-firebase-analytics';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
@@ -19,6 +25,7 @@ import { Provider } from 'react-redux';
 import { Publish } from './screens/Publish'
 import  appReducer from './reducers/Reducer'
 import { createStore } from 'redux';
+
 
   const store = createStore(appReducer);
 
@@ -45,19 +52,23 @@ const firebaseConfig = {
 
 const Stack = createStackNavigator();
 
-
-
-type Props = {
-
-};
+const Drawer = createDrawerNavigator();
 
 
 
-export default class App extends Component<Props> {
+export default class App extends Component {
 
-  constructor(props:Props){
+  constructor(props){
     super(props)
   }
+
+  openDrawer(){
+
+    const { dispatch } = useNavigation()
+    dispatch(DrawerActions.openDrawer()) 
+
+  }
+
 
 
   render(){
@@ -84,9 +95,19 @@ export default class App extends Component<Props> {
               title="Sign In"
               color="#00cc00"
             />
-          )
-
-        })}
+          ),
+          headerLeft: () => (
+            <Button
+              onPress={() => 
+                navigation.navigate("EditProfile")
+            
+            }
+              title="Edtit Profile"
+              color="#00cc00"
+            />
+          ),
+        }
+        )}
          />
         <Stack.Screen name="Topic" component={Topic} />
         <Stack.Screen name="Publish" component={Publish} />
@@ -105,10 +126,28 @@ export default class App extends Component<Props> {
               title="Sign up"
               color="#00cc00"
             />
+          ),
+
+        })}
+        />
+        <Stack.Screen name="EditProfile" 
+        component={EditProfile}
+        options={({ navigation, route }) => ({
+
+          headerRight: () => (
+            <Button
+              onPress={() => 
+                navigation.navigate("Home")
+            
+            }
+              title="Edit Profile"
+              color="#00cc00"
+            />
           )
 
         })}
         />
+
                 <Stack.Screen name="SignUp" 
         component={SignUp}
         />
@@ -116,6 +155,7 @@ export default class App extends Component<Props> {
 
 
       </Stack.Navigator>
+      
 
     </NavigationContainer>
     </Provider>

@@ -36,8 +36,7 @@ interface Props {
 
   export class IdeaList extends React.Component<Props,State> {
       constructor(props){
-          super(props)
-          console.log(this.props.ideas)          
+          super(props)       
           this.state = {
   
             actions:[

@@ -28,7 +28,7 @@ interface Props {
 
 
  interface State {
-  userId:string; 
+  uid:string; 
   title:string;
   detail:string;
   current:Date;
@@ -70,7 +70,7 @@ interface Props {
           super(props)
           this.state = {
             title:"",
-            userId:"",
+            uid:"",
             detail:"",
             current: new Date(),
             data:null,
@@ -93,9 +93,9 @@ interface Props {
 
         let users = data["users"]
   
-        if(users["userId"] === undefined){
+        if(users["uid"] === undefined){
   
-          users["userId"] = {
+          users["uid"] = {
             ideas:[],
             features:[],
             points:0
@@ -104,7 +104,7 @@ interface Props {
   
         }
 
-        let points = users["userId"]["points"]
+        let points = users["uid"]["points"]
         this.setState({
           data:data,
           points:points
@@ -122,7 +122,7 @@ interface Props {
 
 
   
-        let user = this.state.data.users["userId"]
+        let user = this.state.data.users["uid"]
   
         let ideas = user["ideas"]
         
@@ -142,7 +142,7 @@ interface Props {
             win:this.state.data["win"],
             wni:this.state.data["wni"],
             users:this.state.data.users,
-            "users.userId.points":points
+            "users.uid.points":points
   
   
   

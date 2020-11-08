@@ -119,7 +119,17 @@ interface State {
       />
       <Tab.Screen
         name="Rank"
-        component={Rank}
+        children={()=><Rank 
+          navigation={this.props.navigation}
+          route={this.props.route}
+          authorId={this.props.route.params.authorId}
+          postId={this.props.route.params.postId}
+          userId={"test"}
+          win={this.props.route.params.win}
+          wni={this.props.route.params.wni}
+          ideas={this.props.route.params.ideas}
+          
+          />}
         options={{ tabBarLabel: 'Rank' }}
       />
       <Tab.Screen

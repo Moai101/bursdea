@@ -13,6 +13,14 @@ import 'firebase/firestore';
 import env from '../env.json';
 // import { createStackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Header, Button } from 'react-native-elements';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
 
   const store = createStore(appReducer);
   
@@ -49,6 +57,35 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
     isFetching:boolean
 
   }
+
+  function Feed({ navigation }) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Feed Screen</Text>
+        <Button title="Open drawer" onPress={() => navigation.openDrawer()} />
+      </View>
+    );
+  }
+  
+  function CustomDrawerContent(props) {
+    return (
+      <DrawerContentScrollView {...props}>
+        <DrawerItemList {...props} />
+      </DrawerContentScrollView>
+    );
+  }
+  
+  const Drawer = createDrawerNavigator();
+  
+  function MyDrawer() {
+    return (
+      <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
+        <Drawer.Screen name="Feed" component={Feed} />
+      </Drawer.Navigator>
+    );
+  }
+
+
 
   export class Home  extends React.Component<Props,State> {
 

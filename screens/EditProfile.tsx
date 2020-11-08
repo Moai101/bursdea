@@ -49,19 +49,17 @@ import { Input } from 'react-native-elements';
   }
 
   interface State {
-      email:string;
-      password:string;
+      fullname:string;
 
   }
 
-  export class SignUp  extends React.Component<Props,State> {
+  export class EditProfile  extends React.Component<Props,State> {
 
     constructor(props){
       super(props)
 
       this.state = {
-          email:"",
-          password:""
+          fullname:"",
       }
 
 
@@ -70,39 +68,12 @@ import { Input } from 'react-native-elements';
 
     onPress(){
 
-        let props = this.props
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.email).then(function(res){
-
-            db.collection("users").doc(res.user.uid).set({
-                userId:res.user.uid,
-                fullname:"",
-            })
-
-            props.navigation.navigate("Profile")
-
-
-
-
-        }).catch(function(error) {
-           
-           alert(error)
-          });
-
-
-
 
     }
 
-    emailTextChange(text:string){
+    fullnameTextChange(text:string){
 
-        this.setState({email:text})
-
-    }
-
-    passwordTextChange(text:string){
-
-        this.setState({password:text})
-        
+        this.setState({fullname:text})
 
     }
 
@@ -114,13 +85,12 @@ import { Input } from 'react-native-elements';
         <View
         style={styles.backgroundImage}
         >
-            <Text>Sign up</Text>
 
 
 <Input
-    value={this.state.email}
-    onChangeText={this.emailTextChange.bind(this)}
-  placeholder='Enter Emai'
+    value={this.state.fullname}
+    onChangeText={this.fullnameTextChange.bind(this)}
+  placeholder='Enter your fullname'
   leftIcon={
     <Icon
       name='user'
@@ -130,20 +100,9 @@ import { Input } from 'react-native-elements';
   }
 />
 
-<Input placeholder="Password" 
- value={this.state.password}
- onChangeText={this.passwordTextChange.bind(this)}
-  leftIcon={
-    <Icon
-      name='lock'
-      size={24}
-      color='black'
-    />
-  }
-secureTextEntry={true} />
 
 <Button 
-title="sign up"
+title="update"
 onPress={this.onPress.bind(this)}
 />
                 
