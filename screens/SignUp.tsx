@@ -74,7 +74,7 @@ import { Input } from 'react-native-elements';
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.email).then(function(res){
 
             db.collection("users").doc(res.user.uid).set({
-                userId:res.user.uid,
+                uid:res.user.uid,
                 fullname:"",
             })
 

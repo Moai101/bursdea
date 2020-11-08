@@ -31,6 +31,7 @@ interface Props {
     data:any,
     points:number
     users:any
+    rank:any
 
   
   }
@@ -83,7 +84,8 @@ interface Props {
             ],
             data:{},
             points:0,
-            users:{}
+            users:{},
+            rank:[]
       
       
           }
@@ -96,9 +98,16 @@ interface Props {
         let firestoreData = await db.collection("posts").doc(this.props.route.params.postId).get()
         let data = firestoreData.data()
 
-         await this.setState({
+        let users = data["users"]
+
+        let num = 0
+
+        let rank = this.state.rank
+
+
+        this.setState({
           data:data,
-          users:data["users"]
+          users:users
         
         })
 
@@ -123,10 +132,23 @@ interface Props {
         return (
 
             <View
-            style={styles.backgroundImage}
+            
             >
-              <Text>{JSON.stringify(this.state.users.uid)}</Text>
-        <Text>{this.props.route.params.postId}</Text>
+
+        <FlatList 
+        data={Object.keys(this.state.users)} 
+        keyExtractor={(item) => item}
+        renderItem={({ item }) =>
+        <View>
+          <Text>{item}</Text>
+          <Text>{this.state.users[item].points}</Text>
+
+        </View>
+        
+      
+      }
+        />  
+
             </View>
         )
       }
@@ -139,3 +161,16 @@ interface Props {
       },
 
   })
+
+  const renderPerson = ({item}: {item: any}) => {
+
+    console.log(item)
+
+    return(
+        <View>
+            <View>
+                <Text>{item}</Text>
+            </View>
+        </View>
+    )
+}
