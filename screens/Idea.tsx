@@ -93,9 +93,9 @@ interface Props {
 
         let users = data["users"]
   
-        if(users["uid"] === undefined){
+        if(users["Dr3hsLjWSLdplUzTPS54SIBCmgo2"] === undefined){
   
-          users["uid"] = {
+          users["Dr3hsLjWSLdplUzTPS54SIBCmgo2"] = {
             ideas:[],
             features:[],
             points:0
@@ -104,7 +104,7 @@ interface Props {
   
         }
 
-        let points = users["uid"]["points"]
+        let points = users["Dr3hsLjWSLdplUzTPS54SIBCmgo2"]["points"]
         this.setState({
           data:data,
           points:points
@@ -122,7 +122,7 @@ interface Props {
 
 
   
-        let user = this.state.data.users["uid"]
+        let user = this.state.data.users["Dr3hsLjWSLdplUzTPS54SIBCmgo2"]
   
         let ideas = user["ideas"]
         
@@ -142,7 +142,7 @@ interface Props {
             win:this.state.data["win"],
             wni:this.state.data["wni"],
             users:this.state.data.users,
-            "users.uid.points":points
+            "users.Dr3hsLjWSLdplUzTPS54SIBCmgo2.points":points
   
   
   

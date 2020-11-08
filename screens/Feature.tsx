@@ -64,9 +64,9 @@ interface State {
 
         let users = data["users"]
   
-        if(users["userId"] === undefined){
+        if(users["Dr3hsLjWSLdplUzTPS54SIBCmgo2"] === undefined){
   
-          users["userId"] = {
+          users["Dr3hsLjWSLdplUzTPS54SIBCmgo2"] = {
             ideas:[],
             features:[],
             points:0
@@ -75,7 +75,7 @@ interface State {
   
         }
 
-        let points = users["userId"]["points"]
+        let points = users["Dr3hsLjWSLdplUzTPS54SIBCmgo2"]["points"]
         this.setState({
           data:data,
           points:points
@@ -95,7 +95,7 @@ interface State {
 
     onPress(){
 
-      let user = this.state.data.users["userId"]
+      let user = this.state.data.users["Dr3hsLjWSLdplUzTPS54SIBCmgo2"]
   
       
       let points = user["points"]
@@ -115,12 +115,12 @@ interface State {
       features.push(feature)
       
 
-      db.collection("posts").doc(this.props.route.params.postId).set({
+      db.collection("posts").doc(this.props.route.params.postId).update({
         authorId: this.state.data["authorId"],
         win:this.state.data["win"],
         wni:this.state.data["wni"],
         users:this.state.data.users,
-        "users.userId.points":points
+        "users.Dr3hsLjWSLdplUzTPS54SIBCmgo2.points":points
 
       })
       .then(function(res) {
